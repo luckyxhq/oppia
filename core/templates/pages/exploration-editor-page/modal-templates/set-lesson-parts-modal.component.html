@@ -1,0 +1,76 @@
+<div class="modal-header">
+  <h3 class="e2e-test-set-lesson-parts-modal-heading" tabindex="0">
+    Set Lesson Parts
+  </h3>
+</div>
+<div class="modal-body oppia-long-text e2e-test-set-lesson-parts-modal">
+  <p tabindex="0">
+    How many parts do you want to divide this chapter into?
+  </p>
+  <p class="oppia-set-lesson-parts-hint" tabindex="0">
+    This will help you track your progress as you create questions for your lesson.
+  </p>
+  <div class="form-group">
+    <label for="totalPartsInput" class="sr-only">Number of parts</label>
+    <input
+      type="number"
+      id="totalPartsInput"
+      class="form-control oppia-set-lesson-parts-input e2e-test-total-parts-input"
+      [(ngModel)]="totalParts"
+      [ngModelOptions]="{standalone: true}"
+      (input)="validateInput()"
+      (keydown.enter)="confirm()"
+      min="{{ minParts }}"
+      max="{{ maxParts }}"
+      placeholder="Enter number of parts"
+      #totalPartsInput>
+    <div *ngIf="isInvalid" class="oppia-set-lesson-parts-error">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-secondary e2e-test-cancel-set-parts-button"
+    (click)="cancel()">
+    Cancel
+  </button>
+  <button
+    type="button"
+    class="btn btn-success e2e-test-confirm-set-parts-button"
+    [disabled]="isInvalid || !totalParts"
+    (click)="confirm()">
+    Set Parts
+  </button>
+</div>
+
+<style>
+  .oppia-set-lesson-parts-hint {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .oppia-set-lesson-parts-input {
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    width: 100%;
+  }
+
+  .oppia-set-lesson-parts-error {
+    color: #d32f2f;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+  }
+</style>
+

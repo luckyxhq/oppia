@@ -82,6 +82,7 @@ import {
   InsertScriptService,
   KNOWN_SCRIPTS,
 } from 'services/insert-script.service';
+import {ExplorationLessonPartsService} from './services/exploration-lesson-parts.service';
 
 interface ExplorationData extends ExplorationBackendDict {
   exploration_is_linked_to_story: boolean;
@@ -187,7 +188,8 @@ export class ExplorationEditorPageComponent implements OnInit, OnDestroy {
     private versionHistoryService: VersionHistoryService,
     private entityVoiceoversService: EntityVoiceoversService,
     private voiceoverBackendApiService: VoiceoverBackendApiService,
-    private insertScriptService: InsertScriptService
+    private insertScriptService: InsertScriptService,
+    private explorationLessonPartsService: ExplorationLessonPartsService
   ) {}
 
   setDocumentTitle(): void {
@@ -454,6 +456,21 @@ export class ExplorationEditorPageComponent implements OnInit, OnDestroy {
       this.explorationWarningsService.updateWarnings();
       this.stateEditorRefreshService.onRefreshStateEditor.emit();
       this.explorationEditorPageHasInitialized = true;
+
+      // Initialize lesson progress bar with default value
+      // Check if already initialized from localStorage
+      const storedTotalParts = localStorage.getItem(
+        `lessonParts_${this.explorationId}`
+      );
+      if (storedTotalParts) {
+        this.explorationLessonPartsService.initialize(
+          parseInt(storedTotalParts, 10)
+        );
+      } else {
+        // Set default to 10 parts for demonstration
+        this.explorationLessonPartsService.initialize(10);
+        localStorage.setItem(`lessonParts_${this.explorationId}`, '10');
+      }
     });
   }
 

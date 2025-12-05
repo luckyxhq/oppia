@@ -86,6 +86,9 @@ import {ExplorationEditorPageRootComponent} from './exploration-editor-page-root
 import {CommonModule} from '@angular/common';
 import {ExplorationEditorPageAuthGuard} from './exploration-editor-page-auth.guard';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {LessonProgressBarComponent} from './lesson-progress-bar/lesson-progress-bar.component';
+import {SetLessonPartsModalComponent} from './modal-templates/set-lesson-parts-modal.component';
+import {ExplorationLessonPartsService} from './services/exploration-lesson-parts.service';
 
 import 'third-party-imports/guppy.import';
 import 'third-party-imports/midi-js.import';
@@ -257,6 +260,8 @@ import {WindowDimensionsService} from 'services/contextual/window-dimensions.ser
     ExplorationEditorPageComponent,
     StateVersionHistoryComponent,
     ExplorationEditorPageRootComponent,
+    LessonProgressBarComponent,
+    SetLessonPartsModalComponent,
   ],
   entryComponents: [
     DeleteStateSkillModalComponent,
@@ -312,8 +317,10 @@ import {WindowDimensionsService} from 'services/contextual/window-dimensions.ser
     ExplorationEditorPageComponent,
     StateVersionHistoryComponent,
     ExplorationEditorPageRootComponent,
+    SetLessonPartsModalComponent,
   ],
   providers: [
+    ExplorationLessonPartsService,
     AlertsService,
     AnswerClassificationService,
     AssetsBackendApiService,

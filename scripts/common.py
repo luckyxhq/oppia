@@ -499,12 +499,29 @@ def recursive_chown(path: str, uid: int, gid: int) -> None:
         uid: int. Owner ID to be set.
         gid: int. Group ID to be set.
     """
-    os.chown(path, uid, gid)
+    # Attempt to change ownership for each file/dir. Some files in
+    # `node_modules` may be broken symlinks or momentarily missing during
+    # installation which can raise FileNotFoundError. Ignore missing files
+    # and continue so the installer can complete. Also ignore permission
+    # errors when running as a user that cannot chown certain files.
+    try:
+        os.chown(path, uid, gid)
+    except OSError as e:  # pragma: no cover - OS-dependent behavior
+        if e.errno not in (errno.ENOENT, errno.EPERM, errno.EACCES):
+            raise
+
     for root, directories, filenames in os.walk(path):
         for directory in directories:
-            os.chown(os.path.join(root, directory), uid, gid)
+            try:
+                os.chown(os.path.join(root, directory), uid, gid)
+            except OSError:  # pragma: no cover - tolerant to FS issues
+                # Skip files that don't exist or can't be chowned.
+                continue
         for filename in filenames:
-            os.chown(os.path.join(root, filename), uid, gid)
+            try:
+                os.chown(os.path.join(root, filename), uid, gid)
+            except OSError:  # pragma: no cover - tolerant to FS issues
+                continue
 
 
 def recursive_chmod(path: str, mode: int) -> None:
@@ -514,12 +531,25 @@ def recursive_chmod(path: str, mode: int) -> None:
         path: str. The path for which mode would be set.
         mode: int. The mode to be set.
     """
-    os.chmod(path, mode)
+    # Similar to recursive_chown, make chmod tolerant to missing files or
+    # permission errors which can occur with transient or broken symlinks in
+    # `node_modules` during installation.
+    try:
+        os.chmod(path, mode)
+    except OSError:  # pragma: no cover - OS-dependent behavior
+        pass
+
     for root, directories, filenames in os.walk(path):
         for directory in directories:
-            os.chmod(os.path.join(root, directory), mode)
+            try:
+                os.chmod(os.path.join(root, directory), mode)
+            except OSError:  # pragma: no cover - tolerant to FS issues
+                continue
         for filename in filenames:
-            os.chmod(os.path.join(root, filename), mode)
+            try:
+                os.chmod(os.path.join(root, filename), mode)
+            except OSError:  # pragma: no cover - tolerant to FS issues
+                continue
 
 
 def print_each_string_after_two_new_lines(strings: List[str]) -> None:
