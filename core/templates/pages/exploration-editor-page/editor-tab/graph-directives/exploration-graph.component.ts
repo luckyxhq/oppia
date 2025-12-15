@@ -38,6 +38,7 @@ export class ExplorationGraphComponent {
   // and we need to do non-null assertion. For more information, see
   // https://github.com/oppia/oppia/wiki/Guide-on-defining-types#ts-7-1
   checkpointCountWarning!: string;
+  activeTab: string = 'overview'; // Default tab.
 
   constructor(
     private alertsService: AlertsService,
@@ -50,6 +51,10 @@ export class ExplorationGraphComponent {
     private routerService: RouterService,
     private stateEditorService: StateEditorService
   ) {}
+
+  switchTab(tab: string): void {
+    this.activeTab = tab;
+  }
 
   // We hide the graph at the outset in order not to confuse new
   // exploration creators.

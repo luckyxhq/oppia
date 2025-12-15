@@ -148,7 +148,7 @@ export class ExplorationDataService {
     ) => void | undefined
   ): Promise<ExplorationBackendDict> {
     if (this.data) {
-      this.loggerService.info('Found exploration data in cache.');
+      this.loggerService.debug('Found exploration data in cache.');
       return Promise.resolve(this.data);
     } else {
       // Retrieve data from the server.
@@ -160,7 +160,7 @@ export class ExplorationDataService {
         this.editableExplorationBackendApiService
           .fetchApplyDraftExplorationAsync(this.explorationId)
           .then(response => {
-            this.loggerService.info('Retrieved exploration data.');
+            this.loggerService.debug('Retrieved exploration data.');
             this.draftChangeListId = response.draft_change_list_id;
             this.data = response;
             const draft = this.localStorageService.getExplorationDraft(

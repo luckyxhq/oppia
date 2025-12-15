@@ -82,7 +82,7 @@ export class ExplorationPropertyService {
       throw new Error('Exploration property name cannot be null.');
     }
 
-    this.loggerService.info(
+    this.loggerService.debug(
       'Initializing exploration ' + this.propertyName + ': ' + value
     );
 

@@ -46,6 +46,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {EditorNavbarBreadcrumbComponent} from './editor-navigation/editor-navbar-breadcrumb.component';
 import {ExplorationGraphModalComponent} from './editor-tab/templates/modal-templates/exploration-graph-modal.component';
 import {ExplorationGraphComponent} from './editor-tab/graph-directives/exploration-graph.component';
+import {CardLivePreviewComponent} from './editor-tab/graph-directives/card-live-preview.component';
 import {StateNameEditorComponent} from './editor-tab/state-name-editor/state-name-editor.component';
 import {EditorNavigationComponent} from './editor-navigation/editor-navigation.component';
 import {TeachOppiaModalComponent} from './editor-tab/templates/modal-templates/teach-oppia-modal.component';
@@ -230,6 +231,7 @@ import {WindowDimensionsService} from 'services/contextual/window-dimensions.ser
     EditorNavbarBreadcrumbComponent,
     ExplorationGraphModalComponent,
     ExplorationGraphComponent,
+    CardLivePreviewComponent,
     StateNameEditorComponent,
     EditorNavigationComponent,
     TeachOppiaModalComponent,

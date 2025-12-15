@@ -206,7 +206,7 @@ export class ExplorationEditorPageComponent implements OnInit, OnDestroy {
 
   /** ******************************************
    * Methods affecting the graph visualization.
-   ********************************************/
+  //  ********************************************/
   toggleExplorationWarningVisibility(): void {
     this.areExplorationWarningsVisible = !this.areExplorationWarningsVisible;
   }
@@ -457,8 +457,8 @@ export class ExplorationEditorPageComponent implements OnInit, OnDestroy {
       this.stateEditorRefreshService.onRefreshStateEditor.emit();
       this.explorationEditorPageHasInitialized = true;
 
-      // Initialize lesson progress bar with default value
-      // Check if already initialized from localStorage
+      // Initialize lesson progress bar with default value.
+      // Check if already initialized from localStorage.
       const storedTotalParts = localStorage.getItem(
         `lessonParts_${this.explorationId}`
       );
@@ -467,7 +467,7 @@ export class ExplorationEditorPageComponent implements OnInit, OnDestroy {
           parseInt(storedTotalParts, 10)
         );
       } else {
-        // Set default to 10 parts for demonstration
+        // Set default to 10 parts for demonstration.
         this.explorationLessonPartsService.initialize(10);
         localStorage.setItem(`lessonParts_${this.explorationId}`, '10');
       }
